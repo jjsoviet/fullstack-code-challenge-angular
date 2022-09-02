@@ -15,16 +15,24 @@ export class WeatherEffects {
   fetchWeather$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WeatherActions.fetchWeatherRequest),
-      switchMap(() =>
-        this.http.get(URL).pipe(
-          map((response: any) =>
-            WeatherActions.fetchWeatherSuccess(this.transformResponse(response))
-          ),
-          catchError(() => of(WeatherActions.fetchWeatherFailure()))
-        )
+      switchMap(({ payload }) =>
+        this.http
+          .get(this.generateUrl(payload.latitude, payload.longitude))
+          .pipe(
+            map((response: any) =>
+              WeatherActions.fetchWeatherSuccess(
+                this.transformResponse(response)
+              )
+            ),
+            catchError(() => of(WeatherActions.fetchWeatherFailure()))
+          )
       )
     )
   );
+
+  generateUrl(latitude: number, longitude: number) {
+    return `${URL}/?latitude=${latitude}&longitude=${longitude}&transform=true`;
+  }
 
   transformResponse(response: any): { [id: string]: Day } {
     return Object.keys(response['daily']).reduce(
