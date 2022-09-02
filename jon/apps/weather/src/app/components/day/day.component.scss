@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding: 24px 24px 12px 24px;
 }
 
 .header {
@@ -11,8 +11,13 @@
 }
 
 .weather {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 600;
+}
+
+.location {
+  margin-top: 4px;
+  font-size: 14px;
 }
  
 .controls {
@@ -31,7 +36,7 @@
 
     &.active {
       font-weight: 600;
-      border-bottom: 2px solid #222222;
+      border-bottom: 2px solid var(--border);
     }
   }
 }
@@ -40,21 +45,22 @@
   margin: 12px 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
 .hour {
-  padding: 12px;
+  width: 84px;
+  height: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: all ease 200ms;
 
   img {
     width: 48px;
     height: 48px;
+    transition: all 200ms ease;
   }
 
   &:hover {

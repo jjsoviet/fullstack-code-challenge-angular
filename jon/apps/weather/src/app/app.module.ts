@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { WeatherComponent } from './containers/weather/weather.component';
 import { WeekComponent } from './components/week/week.component';
 import { DayComponent } from './components/day/day.component';
+import { ThemeComponent } from './components/theme/theme.component';
 
 export const REDUCER_TOKEN = new InjectionToken<
   ActionReducerMap<fromRoot.State>
@@ -26,6 +27,7 @@ export const getReducers = () => fromRoot.reducers;
     WeatherComponent,
     WeekComponent,
     DayComponent,
+    ThemeComponent,
   ],
   imports: [
     BrowserModule,

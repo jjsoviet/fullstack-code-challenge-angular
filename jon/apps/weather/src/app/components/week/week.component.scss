@@ -6,6 +6,7 @@
   min-width: 600px;
 }
 
+
 .week-day {
   width: 80px;
   height: 120px;
@@ -14,7 +15,17 @@
   align-items: center;
   justify-content: center;
   padding: 12px;
-  background-color: #FAFAFA;
+  background-color: var(--list-bg);
+  border-top: 1px solid var(--card-border);
+  border-left: 1px solid var(--card-border);
+  border-right: 1px solid var(--card-border);
+  transition: background-color 200ms ease;
+
+  &:first-of-type,
+  &:last-of-type {
+    border-left: 0;
+    border-right: 0;
+  }
 
   img {
     width: 48px;
@@ -27,13 +38,19 @@
     font-weight: 600;
   }
 
+  .secondary {
+    margin-top: 2px;
+    color: var(--secondary-text);
+  }
+
   &.active {
-    border-top: 2px solid #222222;
-    background-color: #FFFFFF;
+    border-top: 2px solid var(--border);
+    background-color: var(--highlight-bg);
   }
 
   &:hover {
     cursor: pointer;
-    background-color: #FFFFFF;
+    background-color: var(--highlight-bg);
   }
 }
+

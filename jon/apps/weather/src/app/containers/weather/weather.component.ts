@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { first, filter } from 'rxjs/operators';
-import * as dayjs from 'dayjs';
 
 import * as fromWeather from '../../reducers/index.reducer';
 import * as fromLocation from '../../reducers/index.reducer';
