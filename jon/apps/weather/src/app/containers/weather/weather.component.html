@@ -1,0 +1,20 @@
+<div class="container">
+  <ng-container *ngIf="currentLocation && weatherDays">
+    <div class="card">
+      <jon-day-component 
+        [hourMap]="hourMap"
+        [temperature]="temperature"
+        [currentLocation]="currentLocation"
+        (temperatureSelected)="setTemperature($event)"
+      >
+      </jon-day-component>
+      <jon-week-component 
+        [weatherDays]="weatherDays" 
+        [activeDay]="activeDay" 
+        [temperature]="temperature"
+        (daySelected)="setActiveDay($event)"
+      >
+      </jon-week-component>
+    </div>
+  </ng-container>
+</div>

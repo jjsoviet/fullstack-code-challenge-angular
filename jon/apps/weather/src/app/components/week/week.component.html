@@ -1,0 +1,8 @@
+<div class="container">
+  <div *ngFor="let day of weatherDays" class="week-day" [class.active]="activeDay && activeDay.date === day.date" (click)="daySelected.emit(day)">
+    <div class="day">{{day.weekday}}</div>
+    <img src="{{getPath(day.icon)}}" class="icon" />
+    <div class="max-temp">{{day.max_temperature[temperature]}}°</div>
+    <div class="min-temp">{{day.min_temperature[temperature]}}°</div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  flex-wrap: wrap;
+  min-width: 600px;
+}
+
+.week-day {
+  width: 80px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background-color: #FAFAFA;
+
+  img {
+    width: 48px;
+    height: 48px;
+    margin: 12px 0;
+  }
+
+  .day,
+  .max-temp {
+    font-weight: 600;
+  }
+
+  &.active {
+    border-top: 2px solid #222222;
+    background-color: #FFFFFF;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: #FFFFFF;
+  }
+}
