@@ -7,8 +7,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import * as WeatherActions from '../actions/weather.actions';
 import { Day } from '../models/day.model';
 
-const URL =
-  'https://floral-paper-1590.fly.dev/?latitude=40.75&longitude=-74&transform=true';
+const URL = 'https://floral-paper-1590.fly.dev';
 
 @Injectable()
 export class WeatherEffects {
