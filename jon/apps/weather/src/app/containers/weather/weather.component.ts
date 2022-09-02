@@ -89,33 +89,19 @@ export class WeatherComponent {
     this.setHourMap(this.activeDay);
   }
 
-  setHourMap(day: Day, indexLimit: number = 8): void {
+  setHourMap(day: Day, interval = 3): void {
     if (!day) {
       return;
     }
 
-    const currentHour = dayjs().get('hour');
+    const runningHours = Object.keys(day.hourly);
 
-    const hourStartIndex = Object.keys(day.hourly)
-      .map((key: string) => +key.split(':')[0])
-      .indexOf(currentHour);
-
-    const runningHours = day.hourly;
-
-    // TODO: Get remainders
-
-    this.hourMap = Object.keys(runningHours)
-      .slice(
-        hourStartIndex,
-        Math.max(hourStartIndex + indexLimit, Object.keys(runningHours).length)
-      )
-      .reduce(
-        (acc, key) => ({
-          ...acc,
-          [key]: day.hourly[key],
-        }),
-        {}
-      );
+    for (let i = 0; i < runningHours.length; i += interval) {
+      this.hourMap = {
+        ...this.hourMap,
+        [runningHours[i]]: day.hourly[runningHours[i]],
+      };
+    }
   }
 
   ngOnDestroy(): void {
