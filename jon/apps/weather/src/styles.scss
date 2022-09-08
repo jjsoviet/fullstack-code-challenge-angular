@@ -35,4 +35,7 @@ body {
   background: var(--primary-bg);
   color: var(--primary-text);
   transition: background 200ms ease;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
