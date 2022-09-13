@@ -5,6 +5,7 @@ import { first, filter } from 'rxjs/operators';
 
 import * as fromWeather from '../../reducers/index.reducer';
 import * as fromLocation from '../../reducers/index.reducer';
+import * as fromLoadingError from '../../reducers/index.reducer';
 
 import * as WeatherActions from '../../actions/weather.actions';
 import * as LocationActions from '../../actions/location.actions';
@@ -12,6 +13,7 @@ import * as LocationActions from '../../actions/location.actions';
 import { Day } from '../../models/day.model';
 import { Hour } from '../../models/hour.model';
 import { generateMockLocation, Location } from '../../models/location.model';
+import { generateRunningHours } from '../../util/util';
 
 @Component({
   selector: 'jon-weather',
@@ -19,9 +21,22 @@ import { generateMockLocation, Location } from '../../models/location.model';
   styleUrls: ['weather.component.scss'],
 })
 export class WeatherComponent {
-  // Load weather days (week)
-  // isLoading$ = this.store.pipe(select(fromLoadingError.getIsLoading([FETCH_WEATHER])))
-  // hasError$ = this.store.pipe(select(fromLoadingError.getHasError([FETCH_WEATHER])))
+  isLoading$ = this.store.pipe(
+    select(
+      fromLoadingError.getIsLoading([
+        WeatherActions.FETCH_WEATHER,
+        LocationActions.FETCH_LOCATION,
+      ])
+    )
+  );
+  hasError$ = this.store.pipe(
+    select(
+      fromLoadingError.getHasError([
+        WeatherActions.FETCH_WEATHER,
+        LocationActions.FETCH_LOCATION,
+      ])
+    )
+  );
 
   weatherDays: Day[] = [];
   activeDay: Day = this.weatherDays[0];
@@ -44,7 +59,18 @@ export class WeatherComponent {
       .subscribe((days: Day[]) => {
         this.weatherDays = days;
         this.setActiveDay(this.weatherDays[0]);
-        this.setHourMap(this.weatherDays[0]);
+        const nextDayIndex = this.weatherDays
+          .map((day: Day) => day.date)
+          .indexOf(this.activeDay.date);
+
+        if (nextDayIndex < 0) {
+          return;
+        }
+
+        this.setHourMap(
+          this.weatherDays[0],
+          this.weatherDays[nextDayIndex + 1]
+        );
       });
   }
 
@@ -85,22 +111,31 @@ export class WeatherComponent {
     }
 
     this.activeDay = { ...day };
-    this.setHourMap(this.activeDay);
-  }
+    const nextDayIndex = this.weatherDays
+      .map((day: Day) => day.date)
+      .indexOf(this.activeDay.date);
 
-  setHourMap(day: Day, interval = 3): void {
-    if (!day) {
+    if (nextDayIndex < 0) {
       return;
     }
 
-    const runningHours = Object.keys(day.hourly);
+    this.setHourMap(this.activeDay, this.weatherDays[nextDayIndex + 1]);
+  }
 
-    for (let i = 0; i < runningHours.length; i += interval) {
-      this.hourMap = {
-        ...this.hourMap,
-        [runningHours[i]]: day.hourly[runningHours[i]],
-      };
+  setHourMap(currentDay: Day, nextDay: Day, interval = 3): void {
+    if (!currentDay) {
+      return;
     }
+
+    const runningHours = generateRunningHours(currentDay, nextDay, interval);
+
+    this.hourMap = runningHours.reduce(
+      (acc, hour) => ({
+        ...acc,
+        ...hour,
+      }),
+      {}
+    );
   }
 
   ngOnDestroy(): void {

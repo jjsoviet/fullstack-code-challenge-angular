@@ -13,6 +13,7 @@ import { WeatherComponent } from './containers/weather/weather.component';
 import { WeekComponent } from './components/week/week.component';
 import { DayComponent } from './components/day/day.component';
 import { ThemeComponent } from './components/theme/theme.component';
+import { LoadingWrapperComponent } from './components/loading-wrapper/loading-wrapper.component';
 
 export const REDUCER_TOKEN = new InjectionToken<
   ActionReducerMap<fromRoot.State>
@@ -28,6 +29,7 @@ export const getReducers = () => fromRoot.reducers;
     WeekComponent,
     DayComponent,
     ThemeComponent,
+    LoadingWrapperComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,11 @@
+<div *ngIf="loading; else content" class="spinner-container">
+  <div class="spinner"><div></div><div></div><div></div><div></div></div>
+</div>
+
+<ng-template #content>
+  <div *ngIf="error" class="error-container">
+    {{ errorMessage }} 
+    <span *ngIf="retryable" (click)="retry.emit()" class="retry-button">Retry</span>
+  </div>
+  <ng-content *ngIf="!error"></ng-content>
+</ng-template>

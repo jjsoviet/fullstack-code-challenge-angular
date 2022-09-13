@@ -1,9 +1,13 @@
-<div class="container">
-  <div class="theme">
-    <jon-theme-component></jon-theme-component>
-  </div>
-
-  <ng-container *ngIf="currentLocation && weatherDays">
+<jon-loading-wrapper-component 
+  [loading]="isLoading$ | async" 
+  [error]="hasError$ | async" 
+  [retryable]="true" 
+  (retry)="load()"
+>
+  <div class="container">
+    <div class="theme">
+      <jon-theme-component></jon-theme-component>
+    </div>
     <div class="card">
       <jon-day-component 
         [hourMap]="hourMap"
@@ -20,5 +24,5 @@
       >
       </jon-week-component>
     </div>
-  </ng-container>
-</div>
+  </div>
+</jon-loading-wrapper-component>
