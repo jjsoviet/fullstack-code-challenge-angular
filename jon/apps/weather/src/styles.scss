@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('./assets/fonts/proxima_nova.otf');
+}
+
+:root {
+  // Theme
+  --primary-bg: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --list-bg: #FAFAFA;
+  --highlight-bg: #FFFFFF;
+  --border: #222222;
+  --card-border: #96969638;
+  --active-border: #222222;
+  --primary-text: #000000;
+  --secondary-text: #666666;
+}
+
+[theme="dark"] {
+  --primary-bg: #222222;
+  --card-bg: #333333;
+  --list-bg: #282828;
+  --highlight-bg: #3333332e;
+  --border: #888888;
+  --card-border: #333333;
+  --active-border: #666666;
+  --primary-text: #FFFFFF;
+  --secondary-text: #EEEEEE;
+}
+
+body {
+  // Fonts
+  font-family: 'Proxima Nova', sans-serif;
+
+  background: var(--primary-bg);
+  color: var(--primary-text);
+  transition: background 200ms ease;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}

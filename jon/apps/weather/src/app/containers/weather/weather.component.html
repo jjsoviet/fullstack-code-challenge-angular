@@ -1,0 +1,28 @@
+<jon-loading-wrapper-component 
+  [loading]="isLoading$ | async" 
+  [error]="hasError$ | async" 
+  [retryable]="true" 
+  (retry)="load()"
+>
+  <div class="container">
+    <div class="theme">
+      <jon-theme-component></jon-theme-component>
+    </div>
+    <div class="card">
+      <jon-day-component 
+        [hourMap]="hourMap"
+        [temperature]="temperature"
+        [currentLocation]="currentLocation"
+        (temperatureSelected)="setTemperature($event)"
+      >
+      </jon-day-component>
+      <jon-week-component 
+        [weatherDays]="weatherDays" 
+        [activeDay]="activeDay" 
+        [temperature]="temperature"
+        (daySelected)="setActiveDay($event)"
+      >
+      </jon-week-component>
+    </div>
+  </div>
+</jon-loading-wrapper-component>

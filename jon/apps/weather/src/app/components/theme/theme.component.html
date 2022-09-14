@@ -1,0 +1,8 @@
+    <div class="container">
+      <div class="control" [class.active]="theme === 'light'" (click)="switchTheme('light')">
+        Light
+      </div>
+      <div class="control" [class.active]="theme === 'dark'" (click)="switchTheme('dark')">
+        Dark
+      </div>
+    </div>

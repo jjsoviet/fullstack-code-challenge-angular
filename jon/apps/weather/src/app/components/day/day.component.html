@@ -1,0 +1,40 @@
+<div *ngIf="hourMap && activeHourKey" class="container">
+  <div class="header">
+    <div class="info">
+      <div class="weather">
+        {{hourMap[activeHourKey].weather}}
+      </div>
+      <div *ngIf="currentLocation?.city && currentLocation?.region_code" class="location">
+        {{currentLocation.city}}, {{currentLocation.region_code}}
+      </div>
+    </div>
+    <div class="controls">
+      <div class="control" [class.active]="temperature === 'celsius'" (click)="temperatureSelected.emit('celsius')">
+        °C
+      </div>
+      <div class="control" [class.active]="temperature === 'fahrenheit'" (click)="temperatureSelected.emit('fahrenheit')">
+        °F
+      </div>
+    </div>
+  </div>
+  <div class="list">
+    <ng-container *ngIf="hourMap">
+      <div *ngFor="let key of hourKeys" class="hour" [class.active]="key === activeHourKey" (click)="setActiveHour(key)">
+        {{formatHour(key)}}
+        <img src="{{getPath(hourMap[key].icon)}}" class="icon" />
+        <div class="temperature">{{hourMap[key].temperature[temperature]}}°</div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="footer">
+    <div class="humidity">
+      Humidity: 
+      <div class="value">{{hourMap[activeHourKey].relative_humidity}}%</div>
+    </div>
+    <div class="wind">
+      Wind: 
+      <div class="value">{{hourMap[activeHourKey].wind_speed}} MPH</div>
+      <div class="value">{{hourMap[activeHourKey].wind_direction}}</div>
+    </div>
+  </div>
+</div>
